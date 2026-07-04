@@ -4,286 +4,292 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#14120e">
-<title>Quỷ Cốc Bát Hoang — Tra cứu lệnh mod</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Quỷ Cốc Bát Hoang — Tra cứu</title>
 <style>
   :root{
-    --bg:#14120e; --panel:#1e1a14; --panel2:#26211a; --border:#3a332a;
+    --bg:#14120e; --bg2:#191611; --panel:#1e1a14; --panel2:#28221a; --border:#3a332a;
     --ink:#e8e0d0; --dim:#9a8f7a; --accent:#d4a955; --accent2:#8fb573;
-    --red:#c96b5a; --blue:#7aa5c9; --mono:"SF Mono",Menlo,Consolas,monospace;
+    --red:#c96b5a; --blue:#7aa5c9; --purple:#a98fc9;
+    --mono:"SF Mono",Menlo,Consolas,monospace;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:60px}
-  header{position:sticky;top:0;z-index:10;background:linear-gradient(#14120eee,#14120eee);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);padding:14px 16px}
-  h1{font-size:19px;color:var(--accent);letter-spacing:.5px;margin-bottom:10px}
-  h1 small{color:var(--dim);font-weight:400;font-size:12px;margin-left:8px}
-  #q{width:100%;padding:10px 14px;font-size:16px;border-radius:10px;border:1px solid var(--border);background:var(--panel);color:var(--ink);outline:none}
-  #q:focus{border-color:var(--accent)}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-  .chip{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--panel);color:var(--dim);font-size:12.5px;cursor:pointer;user-select:none}
-  .chip.on{background:var(--accent);color:#14120e;border-color:var(--accent);font-weight:600}
-  main{max-width:860px;margin:0 auto;padding:16px}
-  .note{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:10px 14px;font-size:13.5px;color:var(--dim);margin-bottom:16px}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-padding-top:130px}
+  body{background:
+      radial-gradient(1200px 500px at 80% -10%, #2a2015aa, transparent),
+      radial-gradient(900px 400px at -10% 30%, #1d222aA0, transparent),
+      var(--bg);
+    color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Roboto,sans-serif;
+    padding-bottom:70px;min-height:100vh}
+  header{position:sticky;top:0;z-index:20;background:#14120ef2;backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);padding:calc(env(safe-area-inset-top) + 12px) 16px 0}
+  .brand{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+  h1{font-size:19px;color:var(--accent);letter-spacing:.5px;font-weight:700}
+  .brand small{color:var(--dim);font-size:12px}
+  .ver{margin-left:auto;color:var(--dim);font-size:11px;font-family:var(--mono)}
+  #q{width:100%;padding:11px 15px;font-size:16px;border-radius:12px;border:1px solid var(--border);
+    background:var(--panel);color:var(--ink);outline:none;transition:border .15s}
+  #q:focus{border-color:var(--accent);box-shadow:0 0 0 3px #d4a95522}
+  nav{display:flex;gap:4px;margin-top:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav::-webkit-scrollbar{display:none}
+  .tab{padding:9px 16px;font-size:13.5px;color:var(--dim);cursor:pointer;user-select:none;
+    border-bottom:2px solid transparent;white-space:nowrap;font-weight:600}
+  .tab.on{color:var(--accent);border-color:var(--accent)}
+  main{max-width:900px;margin:0 auto;padding:16px}
+  .note{background:linear-gradient(90deg,#d4a95514,transparent);border:1px solid var(--border);
+    border-left:3px solid var(--accent);border-radius:10px;padding:11px 14px;font-size:13.5px;color:var(--dim);margin-bottom:16px}
   .note b{color:var(--ink)}
-  section{margin-bottom:22px}
-  h2{font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:10px}
-  .item{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:6px}
+  section{margin-bottom:24px}
+  h2{font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;
+    padding-bottom:7px;margin-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  h2 .cnt{color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none;font-size:12px}
+  .item{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:4px 14px;align-items:start;
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:7px;
+    transition:background .12s, transform .06s}
   .item:hover{background:var(--panel2)}
-  code{font-family:var(--mono);font-size:13.5px;color:var(--accent2);word-break:break-all;flex:0 0 auto;max-width:46%}
+  .item:active{transform:scale(.995)}
+  code{font-family:var(--mono);font-size:13.5px;color:var(--accent2);word-break:break-all}
   .item.cmd code{color:var(--accent)}
-  .desc{color:var(--ink);font-size:13.5px;flex:1}
-  .desc .vd{color:var(--dim);font-size:12.5px;display:block}
-  .copy{flex:0 0 auto;border:1px solid var(--border);background:none;color:var(--dim);border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}
+  .item.idrow code{color:var(--blue)}
+  .name{color:var(--ink);font-weight:600;font-size:14px}
+  .desc{color:var(--dim);font-size:13px}
+  .desc .vd{display:block;font-size:12px;opacity:.8;margin-top:2px}
+  .copy{border:1px solid var(--border);background:#00000030;color:var(--dim);border-radius:8px;
+    padding:5px 13px;font-size:12px;cursor:pointer;transition:all .12s;align-self:center}
   .copy:hover{color:var(--accent);border-color:var(--accent)}
   .copy.ok{color:var(--accent2);border-color:var(--accent2)}
-  .empty{color:var(--dim);text-align:center;padding:40px 0;display:none}
+  .empty{color:var(--dim);text-align:center;padding:50px 0;display:none}
   mark{background:#d4a95533;color:var(--accent);border-radius:3px;padding:0 1px}
-  #builder{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:18px}
-  #builder h3{font-size:13px;color:var(--dim);margin-bottom:8px;font-weight:600}
+  .more{width:100%;padding:11px;border-radius:10px;border:1px dashed var(--border);background:none;
+    color:var(--dim);cursor:pointer;font-size:13.5px;margin-top:4px}
+  .more:hover{color:var(--accent);border-color:var(--accent)}
+  #builder{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:18px}
+  #builder h3{font-size:12.5px;color:var(--dim);margin-bottom:9px;font-weight:600;letter-spacing:.5px}
   #builder .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  #builder input,#builder select{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--panel2);color:var(--ink);font-size:14px}
+  #builder select,#builder input{padding:9px 11px;border-radius:9px;border:1px solid var(--border);
+    background:var(--panel2);color:var(--ink);font-size:14px;max-width:100%}
   #bval{width:110px}
-  #bout{font-family:var(--mono);color:var(--accent);font-size:14px;padding:8px 10px;background:var(--panel2);border-radius:8px;flex:1;min-width:200px}
-  /* ---- responsive ---- */
-  .chips{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
-  .chips::-webkit-scrollbar{display:none}
-  .chip{white-space:nowrap;flex:0 0 auto}
-  @media(min-width:601px){ .chips{flex-wrap:wrap} }
+  #bout{font-family:var(--mono);color:var(--accent);font-size:14px;padding:9px 11px;
+    background:#00000040;border-radius:9px;flex:1;min-width:180px;word-break:break-all}
+  #updbar{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:50;
+    background:var(--accent);color:#14120e;border-radius:12px;padding:12px 16px;display:none;
+    align-items:center;gap:12px;font-weight:600;box-shadow:0 8px 30px #00000080}
+  #updbar button{margin-left:auto;border:none;background:#14120e;color:var(--accent);
+    border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer}
+  .badge{font-size:10.5px;padding:2px 8px;border-radius:10px;background:#d4a95522;color:var(--accent);font-weight:600}
   @media(max-width:600px){
-    header{padding:10px 12px}
-    h1{font-size:16px;margin-bottom:8px}
-    #q{font-size:16px;padding:9px 12px} /* 16px tránh iOS zoom */
+    header{padding-left:12px;padding-right:12px}
+    h1{font-size:16px}
     main{padding:12px}
-    .item{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 12px}
-    .item code{max-width:100%;grid-column:1;font-size:13px}
-    .item .copy{grid-column:2;grid-row:1;align-self:start;padding:6px 12px;font-size:12.5px}
-    .item .desc{grid-column:1/-1;font-size:13px;color:var(--dim)}
-    .item .desc mark{color:var(--accent)}
+    .item{grid-template-columns:1fr auto}
+    .item code,.item .name{grid-column:1}
+    .item .copy{grid-column:2;grid-row:1;padding:7px 14px}
+    .item .desc{grid-column:1/-1}
     #builder .row{flex-direction:column;align-items:stretch}
     #bval{width:100%}
-    #bout{min-width:0;word-break:break-all}
-    #builder .copy{padding:10px;font-size:14px}
-    .note{font-size:12.5px}
-    h2{font-size:12.5px}
   }
-  @media(hover:none){ .copy{padding:7px 14px} } /* touch target */
 </style>
 </head>
 <body>
 <header>
-  <h1>⚔️ Quỷ Cốc Bát Hoang <small>tra cứu lệnh mod</small></h1>
-  <input id="q" type="search" placeholder="Tìm lệnh, key, tên thuộc tính… (vd: linh căn, atk, tông môn)" autocomplete="off">
-  <div class="chips" id="chips"></div>
+  <div class="brand"><h1>⚔️ Quỷ Cốc Bát Hoang</h1><small>tra cứu game</small><span class="ver" id="ver">v2.0.0</span></div>
+  <input id="q" type="search" placeholder="Tìm kiếm… (gõ không dấu cũng được)" autocomplete="off">
+  <nav id="tabs"></nav>
 </header>
 <main>
-  <div class="note"><b>Cách dùng:</b> icon 📖 góc trên trái bản đồ lớn → tab "Cao cấp mệnh lệnh" → dán lệnh → Chấp hành. Lệnh <b>cộng thêm</b> vào giá trị hiện tại; dùng <b>số âm để giảm</b>. Nhớ tắt keymapping (⌥) trước khi gõ. Trần: ngộ tính 200, kỹ nghệ 100.</div>
-
-  <div id="builder">
-    <h3>🛠 Tạo nhanh lệnh shuxing</h3>
-    <div class="row">
-      <select id="bkey"></select>
-      <input id="bval" type="number" value="100" step="1">
-      <div id="bout">shuxing_atk_100</div>
-      <button class="copy" id="bcopy">Copy</button>
-    </div>
-  </div>
-
-  <div id="list"></div>
+  <div id="content"></div>
   <div class="empty" id="empty">Không tìm thấy — thử từ khóa khác</div>
 </main>
+<div id="updbar">🔄 Có phiên bản mới!<button onclick="location.reload()">Cập nhật</button></div>
+
+<script src="data_ids.js"></script>
 <script>
-const DATA = [
- // ---- Lệnh chung ----
- {g:"Lệnh chung",c:"huifu",d:"Khôi phục tinh lực",t:"cmd"},
- {g:"Lệnh chung",c:"shuxing_<key>_<số>",d:"Tăng/giảm thuộc tính — key xem nhóm Thuộc tính",vd:"shuxing_hp_10 · shuxing_hpMax_-100000",t:"cmd"},
- {g:"Lệnh chung",c:"jingyan_<số>",d:"Tăng kinh nghiệm",vd:"jingyan_100",t:"cmd"},
- {g:"Lệnh chung",c:"yidong_<x>_<y>",d:"Dịch chuyển đến tọa độ",vd:"yidong_10_10",t:"cmd"},
- {g:"Lệnh chung",c:"nandu_<số>",d:"Thiết lập độ khó",vd:"nandu_1",t:"cmd"},
- {g:"Lệnh chung",c:"shijiansuofang_<hệ số>",d:"Chỉnh tốc độ thời gian",vd:"shijiansuofang_1",t:"cmd"},
- {g:"Lệnh chung",c:"gaiming_<ID>_<tên mới>",d:"Đổi tên nhân vật/đơn vị",vd:"gaiming_ID_Lý Tiêu Dao",t:"cmd"},
- {g:"Lệnh chung",c:"tupocailiao_<số>",d:"Tăng vật liệu đột phá",t:"cmd"},
- {g:"Lệnh chung",c:"shuangyupei_<số>",d:"Đặt điểm Song Ngư Bôi",vd:"shuangyupei_10000",t:"cmd"},
- {g:"Lệnh chung",c:"qingkong",d:"Làm trống ba lô (cẩn thận!)",t:"cmd"},
- {g:"Lệnh chung",c:"daoxin_<ID>_<ID đạo tâm>_<trạng thái>_<tiến độ>_<đạo chủng dư>",d:"Thiết lập đạo tâm",t:"cmd"},
- {g:"Lệnh chung",c:"jianyidu_<npcid>_<giá trị>",d:"Tăng độ kiên nghị đạo tâm",t:"cmd"},
- {g:"Lệnh chung",c:"juqingmingling",d:"Lệnh kịch bản (cốt truyện)",t:"cmd"},
- {g:"Lệnh chung",c:"hualongchichongzhi",d:"Reset đẳng cấp ao Thanh Lân (Hóa Long trì)",t:"cmd"},
- {g:"Lệnh chung",c:"shenqi_<ID thần khí>",d:"Thiết lập Thần khí",t:"cmd"},
- {g:"Lệnh chung",c:"qiling_<ID khí linh>",d:"Thêm khí linh",t:"cmd"},
- {g:"Lệnh chung",c:"shanchuqiling_<ID khí linh>",d:"Xóa khí linh",t:"cmd"},
- {g:"Lệnh chung",c:"zongmenshuxing_<ID tông môn>_<loại tài nguyên>_<giá trị>",d:"Tăng tài nguyên tông môn — ID xem nhóm Tông môn",t:"cmd"},
- // ---- Bí tịch ----
- {g:"Bí tịch",c:"xueximiji",d:"Học tất cả bí tịch trong hành trang",t:"cmd"},
- {g:"Bí tịch",c:"citiaomanji",d:"Bí tịch trong hành trang max cấp từ đầu",t:"cmd"},
- {g:"Bí tịch",c:"xiulianmiji",d:"Tu luyện tất cả bí tịch max cấp",t:"cmd"},
- {g:"Bí tịch",c:"yiwangmiji_<loại võ học>",d:"Lãng quên (xóa) bí tịch theo loại",t:"cmd"},
- // ---- Ngăn chứa ----
- {g:"Ngăn chứa (cách vật)",c:"dakaigezi",d:"Mở tất cả ngăn chứa (mở sau khi đi đường)",t:"cmd"},
- {g:"Ngăn chứa (cách vật)",c:"guanbigezi",d:"Đóng tất cả ngăn chứa",t:"cmd"},
- {g:"Ngăn chứa (cách vật)",c:"huifugezi",d:"Khôi phục thuộc tính tất cả ngăn chứa",t:"cmd"},
- // ---- Thuộc tính cơ bản ----
- {g:"Thuộc tính — cơ bản",c:"hp / hpMax",d:"Thể lực / Thể lực tối đa",k:["hp","hpMax"]},
- {g:"Thuộc tính — cơ bản",c:"mp / mpMax",d:"Linh lực / tối đa",k:["mp","mpMax"]},
- {g:"Thuộc tính — cơ bản",c:"sp / spMax",d:"Niệm lực / tối đa",k:["sp","spMax"]},
- {g:"Thuộc tính — cơ bản",c:"dp / dpMax",d:"Đạo lực / tối đa",k:["dp","dpMax"]},
- {g:"Thuộc tính — cơ bản",c:"atk",d:"Công kích",k:["atk"]},
- {g:"Thuộc tính — cơ bản",c:"def",d:"Phòng ngự",k:["def"]},
- {g:"Thuộc tính — cơ bản",c:"energy / energyMax",d:"Tinh lực / tối đa",k:["energy","energyMax"]},
- {g:"Thuộc tính — cơ bản",c:"health / healthMax",d:"Khỏe mạnh / tối đa",k:["health","healthMax"]},
- {g:"Thuộc tính — cơ bản",c:"mood / moodMax",d:"Tâm tình / tối đa",k:["mood","moodMax"]},
- // ---- Nhân vật ----
- {g:"Thuộc tính — nhân vật",c:"talent",d:"Ngộ tính (trần 200)",k:["talent"]},
- {g:"Thuộc tính — nhân vật",c:"luck",d:"May mắn",k:["luck"]},
- {g:"Thuộc tính — nhân vật",c:"beauty",d:"Mị lực",k:["beauty"]},
- {g:"Thuộc tính — nhân vật",c:"age / ageYear",d:"Tuổi tác",k:["age","ageYear"]},
- {g:"Thuộc tính — nhân vật",c:"life / lifeYear",d:"Tuổi thọ",k:["life","lifeYear"]},
- {g:"Thuộc tính — nhân vật",c:"msp",d:"Di tốc (tốc độ di chuyển)",k:["msp"]},
- {g:"Thuộc tính — nhân vật",c:"fsp",d:"Cước lực",k:["fsp"]},
- {g:"Thuộc tính — nhân vật",c:"exp",d:"Kinh nghiệm",k:["exp"]},
- {g:"Thuộc tính — nhân vật",c:"reputation",d:"Danh vọng",k:["reputation"]},
- {g:"Thuộc tính — nhân vật",c:"abilityPoint",d:"Biết chút (điểm lĩnh ngộ)",k:["abilityPoint"]},
- {g:"Thuộc tính — nhân vật",c:"abilityExp",d:"Tâm đắc",k:["abilityExp"]},
- {g:"Thuộc tính — nhân vật",c:"standUp",d:"Chính đạo giá trị",k:["standUp"]},
- {g:"Thuộc tính — nhân vật",c:"standDown",d:"Ma đạo giá trị",k:["standDown"]},
- // ---- Chiến đấu ----
- {g:"Thuộc tính — chiến đấu",c:"crit",d:"Hiểu ý",k:["crit"]},
- {g:"Thuộc tính — chiến đấu",c:"critV",d:"Bạo kích",k:["critV"]},
- {g:"Thuộc tính — chiến đấu",c:"guard",d:"Hộ tâm",k:["guard"]},
- {g:"Thuộc tính — chiến đấu",c:"guardV",d:"Kháng bạo bội số",k:["guardV"]},
- {g:"Thuộc tính — chiến đấu",c:"hpRes / mpRes / spRes",d:"Hồi phục thể lực / linh lực / niệm lực",k:["hpRes","mpRes","spRes"]},
- {g:"Thuộc tính — chiến đấu",c:"pfr",d:"Công pháp kháng tính",k:["pfr"]},
- {g:"Thuộc tính — chiến đấu",c:"mfr",d:"Linh căn kháng tính",k:["mfr"]},
- // ---- Linh căn ----
- {g:"Linh căn tư chất",c:"basFire",d:"Hỏa linh căn",k:["basFire"]},
- {g:"Linh căn tư chất",c:"basFroze",d:"Thủy linh căn",k:["basFroze"]},
- {g:"Linh căn tư chất",c:"basThunder",d:"Lôi linh căn",k:["basThunder"]},
- {g:"Linh căn tư chất",c:"basWind",d:"Phong linh căn",k:["basWind"]},
- {g:"Linh căn tư chất",c:"basEarth",d:"Thổ linh căn",k:["basEarth"]},
- {g:"Linh căn tư chất",c:"basWood",d:"Mộc linh căn",k:["basWood"]},
- // ---- Công pháp ----
- {g:"Công pháp tư chất",c:"basSword",d:"Kiếm pháp",k:["basSword"]},
- {g:"Công pháp tư chất",c:"basSpear",d:"Thương pháp",k:["basSpear"]},
- {g:"Công pháp tư chất",c:"basBlade",d:"Đao pháp",k:["basBlade"]},
- {g:"Công pháp tư chất",c:"basFist",d:"Quyền pháp",k:["basFist"]},
- {g:"Công pháp tư chất",c:"basPalm",d:"Chưởng pháp",k:["basPalm"]},
- {g:"Công pháp tư chất",c:"basFinger",d:"Chỉ pháp",k:["basFinger"]},
- // ---- Kỹ nghệ ----
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basPil",d:"Luyện đan",k:["basPil"]},
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basEqp",d:"Luyện khí",k:["basEqp"]},
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basGeo",d:"Phong thủy",k:["basGeo"]},
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basSym",d:"Vẽ bùa",k:["basSym"]},
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basHerb",d:"Dược liệu",k:["basHerb"]},
- {g:"Kỹ nghệ tư chất (trần 100)",c:"basMine",d:"Quảng tài (khai khoáng)",k:["basMine"]},
- // ---- Gộp nhóm ----
- {g:"Key gộp nhóm",c:"basMgAll",d:"Toàn bộ linh căn",k:["basMgAll"]},
- {g:"Key gộp nhóm",c:"basWpAll",d:"Toàn bộ công pháp tư chất",k:["basWpAll"]},
- {g:"Key gộp nhóm",c:"basArtAll",d:"Toàn bộ kỹ nghệ tư chất",k:["basArtAll"]},
- {g:"Key gộp nhóm",c:"basAll",d:"Toàn bộ chiến đấu tư chất",k:["basAll"]},
- {g:"Key gộp nhóm",c:"basWpAllAny / basMgAllAny / basAllAny",d:"Ngẫu nhiên 1 hạng (công pháp / linh căn / chiến đấu)",k:["basWpAllAny","basMgAllAny","basAllAny"]},
- {g:"Key gộp nhóm",c:"basWpMax / basMgMax / basAllMax / basArtMax",d:"Hạng cao nhất của nhóm",k:["basWpMax","basMgMax","basAllMax","basArtMax"]},
- {g:"Key gộp nhóm",c:"basWpMin / basMgMin / basAllMin / basArtMin",d:"Hạng thấp nhất của nhóm",k:["basWpMin","basMgMin","basAllMin","basArtMin"]},
- // ---- Bội suất ----
- {g:"Bội suất tăng trưởng",c:"expGrow",d:"Kinh nghiệm tăng lên bội suất",k:["expGrow"]},
- {g:"Bội suất tăng trưởng",c:"townBuyDecline",d:"Phường thị mua tiêu hao linh thạch bội suất (giảm giá)",k:["townBuyDecline"]},
- {g:"Bội suất tăng trưởng",c:"schoolBuyDecline",d:"Tông môn tiêu hao cống hiến bội suất",k:["schoolBuyDecline"]},
- {g:"Bội suất tăng trưởng",c:"stepGrow",d:"Thân pháp độ thuần thục tăng bội suất",k:["stepGrow"]},
- {g:"Bội suất tăng trưởng",c:"swordGrow / spearGrow / bladeGrow / fistGrow / palmGrow / fingerGrow",d:"Độ thuần thục kiếm / thương / đao / quyền / chưởng / chỉ",k:["swordGrow","spearGrow","bladeGrow","fistGrow","palmGrow","fingerGrow"]},
- {g:"Bội suất tăng trưởng",c:"fireGrow / frozeGrow / thunderGrow / windGrow / earthGrow / woodGrow",d:"Độ thuần thục pháp kỹ hệ Hỏa / Thủy / Lôi / Phong / Thổ / Mộc",k:["fireGrow","frozeGrow","thunderGrow","windGrow","earthGrow","woodGrow"]},
- {g:"Bội suất tăng trưởng",c:"pillLayer",d:"Trang bị đan dược điệp gia số lượng",k:["pillLayer"]},
- // ---- Tông môn ----
- {g:"ID tông môn",c:"sectsn",d:"Linh Tiêu Quan"},{g:"ID tông môn",c:"sectsm",d:"Chín Huyền Cung"},
- {g:"ID tông môn",c:"sectso",d:"Thiên Quân Các"},{g:"ID tông môn",c:"sectsq",d:"Quả Thương Quan"},
- {g:"ID tông môn",c:"sectsp",d:"Thương Vân Điện"},{g:"ID tông môn",c:"sects0",d:"Lăng Khuyết Núi"},
- {g:"ID tông môn",c:"sectsC",d:"Quan Tháng Dạy"},{g:"ID tông môn",c:"sectsb",d:"Chinh Hồn Tông"},
- {g:"ID tông môn",c:"sectsa",d:"Kinh Diễm Môn"},{g:"ID tông môn",c:"sectsd",d:"Quấn Tuyết Tông"},
- {g:"ID tông môn",c:"sectsc",d:"Thiên Diễn Môn"},{g:"ID tông môn",c:"sectsO",d:"Kim Dương Cốc"},
- {g:"ID tông môn",c:"sectsP",d:"Thanh Phượng Phái"},
- {g:"ID tông môn — phân đà",c:"sects9",d:"Kim Dương Cốc — Vĩnh Ninh Châu"},
- {g:"ID tông môn — phân đà",c:"sects6",d:"Kinh Diễm Môn — Vĩnh Ninh Châu"},
- {g:"ID tông môn — phân đà",c:"sects7",d:"Chinh Hồn Tông — Vĩnh Ninh Châu"},
- {g:"ID tông môn — phân đà",c:"sects8",d:"Thanh Phượng Phái — Vĩnh Ninh Châu"},
- {g:"ID tông môn — phân đà",c:"sectsJ",d:"Chinh Hồn Tông — Hoa Phong Châu"},
- {g:"ID tông môn — phân đà",c:"sectsK",d:"Kinh Diễm Môn — Hoa Phong Châu"},
- {g:"ID tông môn — phân đà",c:"sectsI",d:"Kim Dương Cốc — Hoa Phong Châu"},
- {g:"ID tông môn — phân đà",c:"sectsL",d:"Thanh Phượng Phái — Hoa Phong Châu"},
- {g:"ID tông môn — phân đà",c:"sectsW",d:"Kinh Diễm Môn — Mây Mạch Châu"},
- {g:"ID tông môn — phân đà",c:"sectsV",d:"Chinh Hồn Tông — Mây Mạch Châu"},
- {g:"ID tông môn — phân đà",c:"sectsU",d:"Quấn Tuyết Tông — Mây Mạch Châu"},
- // ---- Tài nguyên tông môn ----
- {g:"Loại tài nguyên tông môn",c:"1",d:"Yên ổn độ"},{g:"Loại tài nguyên tông môn",c:"2",d:"Phồn vinh độ"},
- {g:"Loại tài nguyên tông môn",c:"3",d:"Ký danh đệ tử"},{g:"Loại tài nguyên tông môn",c:"4",d:"Tông môn danh dự"},
- {g:"Loại tài nguyên tông môn",c:"5",d:"Độ trung thành"},{g:"Loại tài nguyên tông môn",c:"7",d:"Linh thạch"},
- {g:"Loại tài nguyên tông môn",c:"8",d:"Dược liệu"},{g:"Loại tài nguyên tông môn",c:"9",d:"Quảng tài"},
- // ---- Mẹo ----
- {g:"Mẹo & lưu ý",c:"Tab: Tăng thêm đạo cụ",d:"Search từ khóa trong TÊN item (vd \"trữ\" → Kiên nham giới) + số lượng → thêm vào ba lô. Nửa phải thêm bí tịch theo loại (võ kỹ / tuyệt kỹ / thân pháp / tâm pháp / thần thông).",t:"tip"},
- {g:"Mẹo & lưu ý",c:"Nhẫn trữ vật",d:"\"{0} Nhẫn trữ vật\" là đồ NHIỆM VỤ, không đeo được — đừng spawn. Bản đeo được theo cảnh giới: Thạch chìm giới (Luyện Khí), Kiên nham giới (Trúc Cơ)… spawn qua tab đạo cụ hoặc mua phường thị.",t:"tip"},
- {g:"Mẹo & lưu ý",c:"Số âm",d:"Mọi lệnh shuxing nhận số âm để giảm chỉ số. VD: shuxing_hpMax_-8999999 đưa máu 9,99tr về 1tr.",t:"tip"},
+/* ================= DỮ LIỆU LỆNH ================= */
+const CMDS=[
+ {g:"Lệnh chung",c:"huifu",d:"Khôi phục tinh lực"},
+ {g:"Lệnh chung",c:"shuxing_<key>_<số>",d:"Tăng/giảm thuộc tính — key ở tab Thuộc tính. Số âm để giảm.",vd:"shuxing_hp_10 · shuxing_hpMax_-100000"},
+ {g:"Lệnh chung",c:"jingyan_<số>",d:"Tăng kinh nghiệm",vd:"jingyan_100"},
+ {g:"Lệnh chung",c:"yidong_<x>_<y>",d:"Dịch chuyển đến tọa độ",vd:"yidong_10_10"},
+ {g:"Lệnh chung",c:"nandu_<số>",d:"Thiết lập độ khó",vd:"nandu_1"},
+ {g:"Lệnh chung",c:"shijiansuofang_<hệ số>",d:"Chỉnh tốc độ thời gian",vd:"shijiansuofang_1"},
+ {g:"Lệnh chung",c:"gaiming_<ID>_<tên mới>",d:"Đổi tên nhân vật/đơn vị",vd:"gaiming_ID_Lý Tiêu Dao"},
+ {g:"Lệnh chung",c:"tupocailiao_<số>",d:"Tăng vật liệu đột phá"},
+ {g:"Lệnh chung",c:"shuangyupei_<số>",d:"Đặt điểm Song Ngư Bôi",vd:"shuangyupei_10000"},
+ {g:"Lệnh chung",c:"qingkong",d:"Làm trống ba lô (cẩn thận!)"},
+ {g:"Lệnh chung",c:"daoxin_<ID>_<ID đạo tâm>_<trạng thái>_<tiến độ>_<đạo chủng dư>",d:"Thiết lập đạo tâm"},
+ {g:"Lệnh chung",c:"jianyidu_<npcid>_<giá trị>",d:"Tăng độ kiên nghị đạo tâm"},
+ {g:"Lệnh chung",c:"juqingmingling",d:"Lệnh kịch bản (cốt truyện)"},
+ {g:"Lệnh chung",c:"hualongchichongzhi",d:"Reset đẳng cấp ao Thanh Lân"},
+ {g:"Lệnh chung",c:"shenqi_<ID thần khí>",d:"Thiết lập Thần khí — tra ID ở tab Kho ID"},
+ {g:"Lệnh chung",c:"qiling_<ID khí linh>",d:"Thêm khí linh — tra ID ở tab Kho ID"},
+ {g:"Lệnh chung",c:"shanchuqiling_<ID khí linh>",d:"Xóa khí linh"},
+ {g:"Lệnh chung",c:"zongmenshuxing_<ID tông môn>_<loại tài nguyên>_<giá trị>",d:"Tăng tài nguyên tông môn — ID ở tab Thuộc tính"},
+ {g:"Bí tịch",c:"xueximiji",d:"Học tất cả bí tịch trong hành trang"},
+ {g:"Bí tịch",c:"citiaomanji",d:"Bí tịch trong hành trang max cấp từ đầu"},
+ {g:"Bí tịch",c:"xiulianmiji",d:"Tu luyện tất cả bí tịch max cấp"},
+ {g:"Bí tịch",c:"yiwangmiji_<loại võ học>",d:"Lãng quên bí tịch theo loại"},
+ {g:"Ngăn chứa",c:"dakaigezi",d:"Mở tất cả ngăn chứa (mở sau khi đi đường)"},
+ {g:"Ngăn chứa",c:"guanbigezi",d:"Đóng tất cả ngăn chứa"},
+ {g:"Ngăn chứa",c:"huifugezi",d:"Khôi phục thuộc tính tất cả ngăn chứa"},
 ];
-
-const GROUPS=[...new Set(DATA.map(x=>x.g))];
-const CATS=["Tất cả","Lệnh","Thuộc tính","Linh căn","Công pháp","Kỹ nghệ","Gộp nhóm","Bội suất","Tông môn","Mẹo"];
-const CATMAP={
- "Lệnh":g=>g.startsWith("Lệnh")||g==="Bí tịch"||g.startsWith("Ngăn"),
- "Thuộc tính":g=>g.startsWith("Thuộc tính"),
- "Linh căn":g=>g==="Linh căn tư chất",
- "Công pháp":g=>g==="Công pháp tư chất",
- "Kỹ nghệ":g=>g.startsWith("Kỹ nghệ"),
- "Gộp nhóm":g=>g==="Key gộp nhóm",
- "Bội suất":g=>g==="Bội suất tăng trưởng",
- "Tông môn":g=>g.startsWith("ID tông môn")||g.startsWith("Loại tài nguyên"),
- "Mẹo":g=>g==="Mẹo & lưu ý",
-};
-let cat="Tất cả";
-
-// no-accent search
+const KEYS=[
+ {g:"Cơ bản",k:"hp",d:"Thể lực"},{g:"Cơ bản",k:"hpMax",d:"Thể lực tối đa"},
+ {g:"Cơ bản",k:"mp",d:"Linh lực"},{g:"Cơ bản",k:"mpMax",d:"Linh lực tối đa"},
+ {g:"Cơ bản",k:"sp",d:"Niệm lực"},{g:"Cơ bản",k:"spMax",d:"Niệm lực tối đa"},
+ {g:"Cơ bản",k:"dp",d:"Đạo lực"},{g:"Cơ bản",k:"dpMax",d:"Đạo lực tối đa"},
+ {g:"Cơ bản",k:"atk",d:"Công kích"},{g:"Cơ bản",k:"def",d:"Phòng ngự"},
+ {g:"Cơ bản",k:"energy",d:"Tinh lực"},{g:"Cơ bản",k:"energyMax",d:"Tinh lực tối đa"},
+ {g:"Cơ bản",k:"health",d:"Khỏe mạnh"},{g:"Cơ bản",k:"healthMax",d:"Khỏe mạnh tối đa"},
+ {g:"Cơ bản",k:"mood",d:"Tâm tình"},{g:"Cơ bản",k:"moodMax",d:"Tâm tình tối đa"},
+ {g:"Nhân vật",k:"talent",d:"Ngộ tính (trần 200)"},{g:"Nhân vật",k:"luck",d:"May mắn"},
+ {g:"Nhân vật",k:"beauty",d:"Mị lực"},{g:"Nhân vật",k:"age",d:"Tuổi tác"},
+ {g:"Nhân vật",k:"ageYear",d:"Tuổi tác (năm)"},{g:"Nhân vật",k:"life",d:"Tuổi thọ"},
+ {g:"Nhân vật",k:"lifeYear",d:"Tuổi thọ (năm)"},{g:"Nhân vật",k:"msp",d:"Di tốc"},
+ {g:"Nhân vật",k:"fsp",d:"Cước lực"},{g:"Nhân vật",k:"exp",d:"Kinh nghiệm"},
+ {g:"Nhân vật",k:"reputation",d:"Danh vọng"},{g:"Nhân vật",k:"abilityPoint",d:"Biết chút (điểm lĩnh ngộ)"},
+ {g:"Nhân vật",k:"abilityExp",d:"Tâm đắc"},{g:"Nhân vật",k:"standUp",d:"Chính đạo giá trị"},
+ {g:"Nhân vật",k:"standDown",d:"Ma đạo giá trị"},
+ {g:"Chiến đấu",k:"crit",d:"Hiểu ý"},{g:"Chiến đấu",k:"critV",d:"Bạo kích"},
+ {g:"Chiến đấu",k:"guard",d:"Hộ tâm"},{g:"Chiến đấu",k:"guardV",d:"Kháng bạo bội số"},
+ {g:"Chiến đấu",k:"hpRes",d:"Hồi phục thể lực"},{g:"Chiến đấu",k:"mpRes",d:"Hồi phục linh lực"},
+ {g:"Chiến đấu",k:"spRes",d:"Hồi phục niệm lực"},{g:"Chiến đấu",k:"pfr",d:"Công pháp kháng tính"},
+ {g:"Chiến đấu",k:"mfr",d:"Linh căn kháng tính"},
+ {g:"Linh căn",k:"basFire",d:"Hỏa linh căn"},{g:"Linh căn",k:"basFroze",d:"Thủy linh căn"},
+ {g:"Linh căn",k:"basThunder",d:"Lôi linh căn"},{g:"Linh căn",k:"basWind",d:"Phong linh căn"},
+ {g:"Linh căn",k:"basEarth",d:"Thổ linh căn"},{g:"Linh căn",k:"basWood",d:"Mộc linh căn"},
+ {g:"Công pháp",k:"basSword",d:"Kiếm pháp tư chất"},{g:"Công pháp",k:"basSpear",d:"Thương pháp tư chất"},
+ {g:"Công pháp",k:"basBlade",d:"Đao pháp tư chất"},{g:"Công pháp",k:"basFist",d:"Quyền pháp tư chất"},
+ {g:"Công pháp",k:"basPalm",d:"Chưởng pháp tư chất"},{g:"Công pháp",k:"basFinger",d:"Chỉ pháp tư chất"},
+ {g:"Kỹ nghệ (trần 100)",k:"basPil",d:"Luyện đan"},{g:"Kỹ nghệ (trần 100)",k:"basEqp",d:"Luyện khí"},
+ {g:"Kỹ nghệ (trần 100)",k:"basGeo",d:"Phong thủy"},{g:"Kỹ nghệ (trần 100)",k:"basSym",d:"Vẽ bùa"},
+ {g:"Kỹ nghệ (trần 100)",k:"basHerb",d:"Dược liệu"},{g:"Kỹ nghệ (trần 100)",k:"basMine",d:"Quảng tài"},
+ {g:"Gộp nhóm",k:"basMgAll",d:"Toàn linh căn"},{g:"Gộp nhóm",k:"basWpAll",d:"Toàn công pháp"},
+ {g:"Gộp nhóm",k:"basArtAll",d:"Toàn kỹ nghệ"},{g:"Gộp nhóm",k:"basAll",d:"Toàn chiến đấu tư chất"},
+ {g:"Gộp nhóm",k:"basWpAllAny",d:"Ngẫu nhiên 1 công pháp"},{g:"Gộp nhóm",k:"basMgAllAny",d:"Ngẫu nhiên 1 linh căn"},
+ {g:"Gộp nhóm",k:"basAllAny",d:"Ngẫu nhiên 1 chiến đấu"},{g:"Gộp nhóm",k:"basWpMax",d:"Công pháp cao nhất"},
+ {g:"Gộp nhóm",k:"basMgMax",d:"Linh căn cao nhất"},{g:"Gộp nhóm",k:"basAllMax",d:"Chiến đấu cao nhất"},
+ {g:"Gộp nhóm",k:"basArtMax",d:"Kỹ nghệ cao nhất"},{g:"Gộp nhóm",k:"basWpMin",d:"Công pháp thấp nhất"},
+ {g:"Gộp nhóm",k:"basMgMin",d:"Linh căn thấp nhất"},{g:"Gộp nhóm",k:"basAllMin",d:"Chiến đấu thấp nhất"},
+ {g:"Gộp nhóm",k:"basArtMin",d:"Kỹ nghệ thấp nhất"},
+ {g:"Bội suất",k:"expGrow",d:"Kinh nghiệm bội suất"},{g:"Bội suất",k:"townBuyDecline",d:"Giảm giá phường thị"},
+ {g:"Bội suất",k:"schoolBuyDecline",d:"Giảm tiêu cống hiến tông môn"},{g:"Bội suất",k:"stepGrow",d:"Thuần thục thân pháp"},
+ {g:"Bội suất",k:"swordGrow",d:"Thuần thục kiếm"},{g:"Bội suất",k:"spearGrow",d:"Thuần thục thương"},
+ {g:"Bội suất",k:"bladeGrow",d:"Thuần thục đao"},{g:"Bội suất",k:"fistGrow",d:"Thuần thục quyền"},
+ {g:"Bội suất",k:"palmGrow",d:"Thuần thục chưởng"},{g:"Bội suất",k:"fingerGrow",d:"Thuần thục chỉ"},
+ {g:"Bội suất",k:"fireGrow",d:"Thuần thục hệ Hỏa"},{g:"Bội suất",k:"frozeGrow",d:"Thuần thục hệ Thủy"},
+ {g:"Bội suất",k:"thunderGrow",d:"Thuần thục hệ Lôi"},{g:"Bội suất",k:"windGrow",d:"Thuần thục hệ Phong"},
+ {g:"Bội suất",k:"earthGrow",d:"Thuần thục hệ Thổ"},{g:"Bội suất",k:"woodGrow",d:"Thuần thục hệ Mộc"},
+ {g:"Bội suất",k:"pillLayer",d:"Đan dược điệp gia số lượng"},
+ {g:"ID tông môn",k:"sectsn",d:"Linh Tiêu Quan"},{g:"ID tông môn",k:"sectsm",d:"Chín Huyền Cung"},
+ {g:"ID tông môn",k:"sectso",d:"Thiên Quân Các"},{g:"ID tông môn",k:"sectsq",d:"Quả Thương Quan"},
+ {g:"ID tông môn",k:"sectsp",d:"Thương Vân Điện"},{g:"ID tông môn",k:"sects0",d:"Lăng Khuyết Núi"},
+ {g:"ID tông môn",k:"sectsC",d:"Quan Tháng Dạy"},{g:"ID tông môn",k:"sectsb",d:"Chinh Hồn Tông"},
+ {g:"ID tông môn",k:"sectsa",d:"Kinh Diễm Môn"},{g:"ID tông môn",k:"sectsd",d:"Quấn Tuyết Tông"},
+ {g:"ID tông môn",k:"sectsc",d:"Thiên Diễn Môn"},{g:"ID tông môn",k:"sectsO",d:"Kim Dương Cốc"},
+ {g:"ID tông môn",k:"sectsP",d:"Thanh Phượng Phái"},
+ {g:"ID tông môn phân đà",k:"sects9",d:"Kim Dương Cốc — Vĩnh Ninh Châu"},{g:"ID tông môn phân đà",k:"sects6",d:"Kinh Diễm Môn — Vĩnh Ninh Châu"},
+ {g:"ID tông môn phân đà",k:"sects7",d:"Chinh Hồn Tông — Vĩnh Ninh Châu"},{g:"ID tông môn phân đà",k:"sects8",d:"Thanh Phượng Phái — Vĩnh Ninh Châu"},
+ {g:"ID tông môn phân đà",k:"sectsJ",d:"Chinh Hồn Tông — Hoa Phong Châu"},{g:"ID tông môn phân đà",k:"sectsK",d:"Kinh Diễm Môn — Hoa Phong Châu"},
+ {g:"ID tông môn phân đà",k:"sectsI",d:"Kim Dương Cốc — Hoa Phong Châu"},{g:"ID tông môn phân đà",k:"sectsL",d:"Thanh Phượng Phái — Hoa Phong Châu"},
+ {g:"ID tông môn phân đà",k:"sectsW",d:"Kinh Diễm Môn — Mây Mạch Châu"},{g:"ID tông môn phân đà",k:"sectsV",d:"Chinh Hồn Tông — Mây Mạch Châu"},
+ {g:"ID tông môn phân đà",k:"sectsU",d:"Quấn Tuyết Tông — Mây Mạch Châu"},
+ {g:"Tài nguyên tông môn",k:"1",d:"Yên ổn độ"},{g:"Tài nguyên tông môn",k:"2",d:"Phồn vinh độ"},
+ {g:"Tài nguyên tông môn",k:"3",d:"Ký danh đệ tử"},{g:"Tài nguyên tông môn",k:"4",d:"Tông môn danh dự"},
+ {g:"Tài nguyên tông môn",k:"5",d:"Độ trung thành"},{g:"Tài nguyên tông môn",k:"7",d:"Linh thạch"},
+ {g:"Tài nguyên tông môn",k:"8",d:"Dược liệu"},{g:"Tài nguyên tông môn",k:"9",d:"Quảng tài"},
+];
+const TIPS=[
+ {c:"Mở bảng lệnh",d:"Icon 📖 góc trên trái bản đồ lớn → tab \"Cao cấp mệnh lệnh\" → dán lệnh → Chấp hành. Trong trấn/thành không mở được, phải ra đại bản đồ."},
+ {c:"Số âm để giảm",d:"Mọi lệnh shuxing là CỘNG THÊM. Dùng số âm để giảm: shuxing_hpMax_-8999999 đưa máu 9,99tr về 1tr."},
+ {c:"Tắt keymapping khi gõ lệnh",d:"Bấm ⌥ Option tắt keymapping trước khi gõ, không thì phím W A S D bị joystick nuốt."},
+ {c:"Spawn vật phẩm",d:"Tab \"Tăng thêm đạo cụ\": search từ khóa trong TÊN item (vd \"trữ\" → Kiên nham giới) + số lượng. Nửa phải tab thêm bí tịch theo loại."},
+ {c:"Nhẫn trữ vật",d:"\"{0} Nhẫn trữ vật\" là đồ nhiệm vụ, KHÔNG đeo được. Bản xịn theo cảnh giới: Thạch chìm giới (Luyện Khí), Kiên nham giới (Trúc Cơ)… spawn hoặc mua phường thị."},
+ {c:"Trần chỉ số",d:"Ngộ tính max 200, kỹ nghệ tư chất max 100. Cộng quá trần sẽ bị chặn."},
+ {c:"Kho ID (beta)",d:"1.365 ID trích từ chính data game bản Việt hoá (khí vận, tọa kỵ, hiệu ứng, đan dược...). Dùng với các lệnh cần ID. Đang bổ sung thêm."},
+];
+/* ================= APP ================= */
+const TABS=[["cmd","Lệnh mod"],["key","Thuộc tính"],["ids","Kho ID"],["tips","Mẹo"]];
+let tab="cmd", idLimit=150;
 const deacc=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
-
-const chipsEl=document.getElementById("chips");
-CATS.forEach(c=>{
+const nav=document.getElementById("tabs"),content=document.getElementById("content"),
+      q=document.getElementById("q"),empty=document.getElementById("empty");
+TABS.forEach(([id,label])=>{
   const el=document.createElement("div");
-  el.className="chip"+(c===cat?" on":"");el.textContent=c;
-  el.onclick=()=>{cat=c;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x.textContent===c));render();};
-  chipsEl.appendChild(el);
+  el.className="tab"+(id===tab?" on":"");el.textContent=label;el.dataset.id=id;
+  el.onclick=()=>{tab=id;idLimit=150;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x.dataset.id===id));render();window.scrollTo(0,0)};
+  nav.appendChild(el);
 });
-
-const q=document.getElementById("q"),list=document.getElementById("list"),empty=document.getElementById("empty");
-q.addEventListener("input",render);
-
-function hi(text,term){
-  if(!term)return text;
-  const dt=deacc(text),i=dt.indexOf(term);
-  if(i<0)return text;
-  return text.slice(0,i)+"<mark>"+text.slice(i,i+term.length)+"</mark>"+text.slice(i+term.length);
-}
+q.addEventListener("input",()=>{idLimit=150;render()});
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function hi(t,term){if(!term)return esc(t);const dt=deacc(String(t)),i=dt.indexOf(term);if(i<0)return esc(t);
+  return esc(String(t).slice(0,i))+"<mark>"+esc(String(t).slice(i,i+term.length))+"</mark>"+esc(String(t).slice(i+term.length));}
+function copyBtn(text){return `<button class="copy" data-c="${esc(text).replace(/"/g,"&quot;")}">Copy</button>`}
 function render(){
-  const term=deacc(q.value.trim());
-  let items=DATA.filter(x=>cat==="Tất cả"||CATMAP[cat](x.g));
-  if(term)items=items.filter(x=>deacc(x.c+" "+x.d+" "+(x.vd||"")+" "+x.g).includes(term));
-  const by={};items.forEach(x=>{(by[x.g]=by[x.g]||[]).push(x)});
-  list.innerHTML=GROUPS.filter(g=>by[g]).map(g=>`<section><h2>${g}</h2>`+by[g].map(x=>`
-    <div class="item ${x.t==="cmd"?"cmd":""}">
-      <code>${hi(x.c,term)}</code>
-      <div class="desc">${hi(x.d,term)}${x.vd?`<span class="vd">VD: ${x.vd}</span>`:""}</div>
-      <button class="copy" onclick="cp(this,'${(x.k?x.k[0]?"shuxing_"+x.k[0]+"_100":x.c:x.c).replace(/'/g,"\\'")}')">Copy</button>
-    </div>`).join("")+"</section>").join("");
-  empty.style.display=items.length?"none":"block";
+  const term=deacc(q.value.trim());let html="",count=0;
+  if(tab==="cmd"){
+    html+=`<div class="note"><b>Cách dùng:</b> icon 📖 góc trên trái bản đồ lớn → "Cao cấp mệnh lệnh" → dán lệnh → Chấp hành. <b>Số âm để giảm</b> chỉ số. Tắt keymapping (⌥) trước khi gõ.</div>`;
+    const items=CMDS.filter(x=>!term||deacc(x.c+" "+x.d+" "+(x.vd||"")).includes(term));count=items.length;
+    const by={};items.forEach(x=>(by[x.g]=by[x.g]||[]).push(x));
+    for(const g in by){html+=`<section><h2>${g}<span class="cnt">${by[g].length}</span></h2>`+
+      by[g].map(x=>`<div class="item cmd"><code>${hi(x.c,term)}</code><div class="desc">${hi(x.d,term)}${x.vd?`<span class="vd">VD: ${x.vd}</span>`:""}</div>${copyBtn(x.c)}</div>`).join("")+"</section>";}
+  }
+  if(tab==="key"){
+    html+=`<div id="builder"><h3>🛠 TẠO NHANH LỆNH SHUXING</h3><div class="row">
+      <select id="bkey">${KEYS.filter(x=>!x.g.startsWith("ID tông môn")&&!x.g.startsWith("Tài nguyên")).map(x=>`<option value="${x.k}">${x.k} — ${x.d}</option>`).join("")}</select>
+      <input id="bval" type="number" value="100" step="1">
+      <div id="bout">shuxing_hp_100</div><button class="copy" id="bcopy">Copy</button></div></div>`;
+    const items=KEYS.filter(x=>!term||deacc(x.k+" "+x.d+" "+x.g).includes(term));count=items.length;
+    const by={};items.forEach(x=>(by[x.g]=by[x.g]||[]).push(x));
+    for(const g in by){html+=`<section><h2>${g}<span class="cnt">${by[g].length}</span></h2>`+
+      by[g].map(x=>`<div class="item"><code>${hi(x.k,term)}</code><div class="desc">${hi(x.d,term)}</div>${copyBtn(g.startsWith("ID")||g.startsWith("Tài")?x.k:"shuxing_"+x.k+"_100")}</div>`).join("")+"</section>";}
+  }
+  if(tab==="ids"){
+    html+=`<div class="note">🗃 <b>1.365 ID</b> trích trực tiếp từ data game bản Việt hoá — khí vận (700xxx), tọa kỵ (3021xxx), hiệu ứng, đan dược… Dùng cho các lệnh cần ID. <span class="badge">BETA — đang bổ sung</span></div>`;
+    const items=GAME_IDS.filter(x=>!term||deacc(x.id+" "+x.n+" "+x.d).includes(term));count=items.length;
+    html+=`<section><h2>Kết quả<span class="cnt">${count}</span></h2>`+
+      items.slice(0,idLimit).map(x=>`<div class="item idrow"><code>${hi(x.id,term)}</code><div><div class="name">${hi(x.n,term)}</div>${x.d?`<div class="desc">${hi(x.d,term)}</div>`:""}</div>${copyBtn(x.id)}</div>`).join("");
+    if(count>idLimit)html+=`<button class="more" id="moreBtn">Hiện thêm (${count-idLimit} còn lại)</button>`;
+    html+="</section>";
+  }
+  if(tab==="tips"){
+    const items=TIPS.filter(x=>!term||deacc(x.c+" "+x.d).includes(term));count=items.length;
+    html+=`<section><h2>Mẹo &amp; lưu ý<span class="cnt">${count}</span></h2>`+
+      items.map(x=>`<div class="item"><div class="name">${hi(x.c,term)}</div><div class="desc">${hi(x.d,term)}</div></div>`).join("")+"</section>";
+  }
+  content.innerHTML=html;
+  empty.style.display=count?"none":"block";
+  const mb=document.getElementById("moreBtn");
+  if(mb)mb.onclick=()=>{idLimit+=300;render()};
+  if(tab==="key"){
+    const bkey=document.getElementById("bkey"),bval=document.getElementById("bval"),bout=document.getElementById("bout");
+    const upd=()=>bout.textContent="shuxing_"+bkey.value+"_"+(bval.value||0);
+    bkey.onchange=upd;bval.oninput=upd;upd();
+    document.getElementById("bcopy").onclick=function(){cp(this,bout.textContent)};
+  }
 }
-function cp(btn,text){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent="✓";btn.classList.add("ok");
-    setTimeout(()=>{btn.textContent="Copy";btn.classList.remove("ok")},1200);
+content.addEventListener("click",e=>{
+  const b=e.target.closest(".copy");
+  if(b&&b.dataset.c)cp(b,b.dataset.c);
+});
+function cp(btn,text){navigator.clipboard.writeText(text).then(()=>{btn.textContent="✓";btn.classList.add("ok");
+  setTimeout(()=>{btn.textContent="Copy";btn.classList.remove("ok")},1200)})}
+render();
+/* ============ PWA + tự cập nhật ============ */
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js").then(reg=>{
+    reg.addEventListener("updatefound",()=>{
+      const nw=reg.installing;
+      nw&&nw.addEventListener("statechange",()=>{
+        if(nw.state==="installed"&&navigator.serviceWorker.controller)
+          document.getElementById("updbar").style.display="flex";
+      });
+    });
+    setInterval(()=>reg.update(),60*60*1000);
   });
 }
-
-// builder
-const bkey=document.getElementById("bkey"),bval=document.getElementById("bval"),bout=document.getElementById("bout");
-DATA.filter(x=>x.k).forEach(x=>x.k.forEach(k=>{
-  const o=document.createElement("option");o.value=k;o.textContent=k+" — "+x.d;bkey.appendChild(o);
-}));
-function upd(){bout.textContent="shuxing_"+bkey.value+"_"+(bval.value||0)}
-bkey.onchange=upd;bval.oninput=upd;upd();
-document.getElementById("bcopy").onclick=function(){cp(this,bout.textContent)};
-
-render();
 </script>
 </body>
 </html>

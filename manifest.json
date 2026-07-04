@@ -1,0 +1,11 @@
+{
+  "name": "Quỷ Cốc Bát Hoang — Tra cứu",
+  "short_name": "QCBH",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#14120e",
+  "theme_color": "#14120e",
+  "icons": [
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
