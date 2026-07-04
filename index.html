@@ -95,7 +95,7 @@
 </head>
 <body>
 <header>
-  <div class="brand"><h1>⚔️ Quỷ Cốc Bát Hoang</h1><small>tra cứu game</small><span class="ver" id="ver">v2.0.0</span></div>
+  <div class="brand"><h1>⚔️ Quỷ Cốc Bát Hoang</h1><small>tra cứu game</small><span class="ver" id="ver">v2.1.0</span></div>
   <input id="q" type="search" placeholder="Tìm kiếm… (gõ không dấu cũng được)" autocomplete="off">
   <nav id="tabs"></nav>
 </header>
@@ -106,6 +106,7 @@
 <div id="updbar">🔄 Có phiên bản mới!<button onclick="location.reload()">Cập nhật</button></div>
 
 <script src="data_ids.js"></script>
+<script src="data_skills.js"></script>
 <script>
 /* ================= DỮ LIỆU LỆNH ================= */
 const CMDS=[
@@ -213,8 +214,9 @@ const TIPS=[
  {c:"Thần khí",d:"Game có 3 thần khí: Song Ngư Bôi (1), Hạo Thiên Nhãn (2), Luyện Yêu Hồ (3) — dùng shenqi_1/2/3. Nguồn: enum trong data IPA."},
 ];
 /* ================= APP ================= */
-const TABS=[["cmd","Lệnh mod"],["key","Thuộc tính"],["ids","Kho ID"],["tips","Mẹo"]];
-let tab="cmd", idLimit=150;
+const TABS=[["cmd","Lệnh mod"],["key","Thuộc tính"],["cp","Công pháp"],["ids","Kho ID"],["tips","Mẹo"]];
+let tab="cmd", idLimit=150, idg="Tất cả";
+const HE_ORDER=["Kiếm","Đao","Thương","Quyền","Chưởng","Chỉ","Hỏa","Thủy","Lôi","Phong","Thổ","Mộc","Thân pháp","Khí linh","Pháp bảo"];
 const deacc=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
 const nav=document.getElementById("tabs"),content=document.getElementById("content"),
       q=document.getElementById("q"),empty=document.getElementById("empty");
@@ -248,11 +250,22 @@ function render(){
     for(const g in by){html+=`<section><h2>${g}<span class="cnt">${by[g].length}</span></h2>`+
       by[g].map(x=>`<div class="item"><code>${hi(x.k,term)}</code><div class="desc">${hi(x.d,term)}</div>${copyBtn(g.startsWith("ID")||g.startsWith("Tài")?x.k:"shuxing_"+x.k+"_100")}</div>`).join("")+"</section>";}
   }
+  if(tab==="cp"){
+    html+=`<div class="note">⚔️ <b>${SKILLS.length} công pháp / khí linh / pháp bảo</b> trích từ data IPA bản Việt hoá, xếp theo hệ. Tên và hiệu ứng nguyên gốc trong game. <span class="badge">BETA</span></div>`;
+    const items=SKILLS.filter(x=>!term||deacc(x.id+" "+x.n+" "+x.d+" "+x.k+" "+x.h).includes(term));count=items.length;
+    const by={};items.forEach(x=>(by[x.h]=by[x.h]||[]).push(x));
+    HE_ORDER.filter(h=>by[h]).forEach(h=>{
+      html+=`<section><h2>Hệ ${h}<span class="cnt">${by[h].length}</span></h2>`+
+        by[h].map(x=>`<div class="item"><div><span class="badge">${x.k}</span> <span class="name">${hi(x.n,term)}</span></div><div class="desc">${x.d?hi(x.d,term):""}</div>${copyBtn(x.id)}</div>`).join("")+"</section>";
+    });
+  }
   if(tab==="ids"){
-    html+=`<div class="note">🗃 <b>1.365 ID</b> trích 100% từ data IPA bản Việt hoá — khí vận (700xxx), hiệu ứng, đan dược… Thần khí dùng shenqi_1/2/3 (xem tab Mẹo). <span class="badge">BETA — đang bổ sung</span></div>`;
-    const items=GAME_IDS.filter(x=>!term||deacc(x.id+" "+x.n+" "+x.d).includes(term));count=items.length;
+    html+=`<div class="note">🗃 <b>1.365 ID</b> trích 100% từ data IPA bản Việt hoá. Thần khí dùng shenqi_1/2/3 (xem tab Mẹo). <span class="badge">BETA — đang bổ sung</span></div>`;
+    const GROUPS=["Tất cả","Khí vận","Đan dược & đạo cụ","Công pháp","Khí linh","Pháp bảo","Trạng thái đặc biệt","Hiệu ứng khác"];
+    html+=`<nav style="margin:-6px 0 12px">`+GROUPS.map(g=>`<div class="tab idg ${g===idg?"on":""}" data-g="${g}">${g}</div>`).join("")+`</nav>`;
+    const items=GAME_IDS.filter(x=>(idg==="Tất cả"||x.g===idg)&&(!term||deacc(x.id+" "+x.n+" "+x.d).includes(term)));count=items.length;
     html+=`<section><h2>Kết quả<span class="cnt">${count}</span></h2>`+
-      items.slice(0,idLimit).map(x=>`<div class="item idrow"><code>${hi(x.id,term)}</code><div><div class="name">${hi(x.n,term)}</div>${x.d?`<div class="desc">${hi(x.d,term)}</div>`:""}</div>${copyBtn(x.id)}</div>`).join("");
+      items.slice(0,idLimit).map(x=>`<div class="item idrow"><code>${hi(x.id,term)}</code><div><div class="name">${hi(x.n,term)} <span class="badge">${x.g}</span></div>${x.d?`<div class="desc">${hi(x.d,term)}</div>`:""}</div>${copyBtn(x.id)}</div>`).join("");
     if(count>idLimit)html+=`<button class="more" id="moreBtn">Hiện thêm (${count-idLimit} còn lại)</button>`;
     html+="</section>";
   }
@@ -274,7 +287,9 @@ function render(){
 }
 content.addEventListener("click",e=>{
   const b=e.target.closest(".copy");
-  if(b&&b.dataset.c)cp(b,b.dataset.c);
+  if(b&&b.dataset.c){cp(b,b.dataset.c);return}
+  const g=e.target.closest(".idg");
+  if(g){idg=g.dataset.g;idLimit=150;render()}
 });
 function cp(btn,text){navigator.clipboard.writeText(text).then(()=>{btn.textContent="✓";btn.classList.add("ok");
   setTimeout(()=>{btn.textContent="Copy";btn.classList.remove("ok")},1200)})}

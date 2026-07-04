@@ -1,7 +1,7 @@
 // QCBH service worker — network-first, tự cập nhật
-const VERSION = "v2.0.1";
+const VERSION = "v2.1.0";
 const CACHE = "qcbh-" + VERSION;
-const ASSETS = ["./", "./index.html", "./data_ids.js", "./manifest.json"];
+const ASSETS = ["./", "./index.html", "./data_ids.js", "./data_skills.js", "./manifest.json"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
