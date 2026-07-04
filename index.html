@@ -123,8 +123,8 @@ const CMDS=[
  {g:"Lệnh chung",c:"jianyidu_<npcid>_<giá trị>",d:"Tăng độ kiên nghị đạo tâm"},
  {g:"Lệnh chung",c:"juqingmingling",d:"Lệnh kịch bản (cốt truyện)"},
  {g:"Lệnh chung",c:"hualongchichongzhi",d:"Reset đẳng cấp ao Thanh Lân"},
- {g:"Lệnh chung",c:"shenqi_<ID thần khí>",d:"Thiết lập Thần khí — tra ID ở tab Kho ID"},
- {g:"Lệnh chung",c:"qiling_<ID khí linh>",d:"Thêm khí linh — tra ID ở tab Kho ID"},
+ {g:"Lệnh chung",c:"shenqi_<ID thần khí>",d:"Thiết lập Thần khí. Theo data IPA: 1 = Song Ngư Bôi, 2 = Hạo Thiên Nhãn, 3 = Luyện Yêu Hồ.",vd:"shenqi_2"},
+ {g:"Lệnh chung",c:"qiling_<ID khí linh>",d:"Thêm khí linh — ID đang xác minh từ IPA"},
  {g:"Lệnh chung",c:"shanchuqiling_<ID khí linh>",d:"Xóa khí linh"},
  {g:"Lệnh chung",c:"zongmenshuxing_<ID tông môn>_<loại tài nguyên>_<giá trị>",d:"Tăng tài nguyên tông môn — ID ở tab Thuộc tính"},
  {g:"Bí tịch",c:"xueximiji",d:"Học tất cả bí tịch trong hành trang"},
@@ -208,7 +208,9 @@ const TIPS=[
  {c:"Spawn vật phẩm",d:"Tab \"Tăng thêm đạo cụ\": search từ khóa trong TÊN item (vd \"trữ\" → Kiên nham giới) + số lượng. Nửa phải tab thêm bí tịch theo loại."},
  {c:"Nhẫn trữ vật",d:"\"{0} Nhẫn trữ vật\" là đồ nhiệm vụ, KHÔNG đeo được. Bản xịn theo cảnh giới: Thạch chìm giới (Luyện Khí), Kiên nham giới (Trúc Cơ)… spawn hoặc mua phường thị."},
  {c:"Trần chỉ số",d:"Ngộ tính max 200, kỹ nghệ tư chất max 100. Cộng quá trần sẽ bị chặn."},
- {c:"Kho ID (beta)",d:"1.365 ID trích từ chính data game bản Việt hoá (khí vận, tọa kỵ, hiệu ứng, đan dược...). Dùng với các lệnh cần ID. Đang bổ sung thêm."},
+ {c:"Kho ID (beta)",d:"1.365 ID trích 100% từ data IPA bản Việt hoá (khí vận 700xxx, hiệu ứng, đan dược...). KHÔNG dùng tài liệu bản PC vì đã phát hiện lệch với bản mobile."},
+ {c:"Spawn tọa kỵ theo TÊN",d:"Không cần ID — tab \"Tăng thêm đạo cụ\" search: \"Cổ · Thừa hoàng\", \"Cổ · Long ngư\", \"Thừa hoàng\", \"Long ngư\"… là ra item tọa kỵ."},
+ {c:"Thần khí",d:"Game có 3 thần khí: Song Ngư Bôi (1), Hạo Thiên Nhãn (2), Luyện Yêu Hồ (3) — dùng shenqi_1/2/3. Nguồn: enum trong data IPA."},
 ];
 /* ================= APP ================= */
 const TABS=[["cmd","Lệnh mod"],["key","Thuộc tính"],["ids","Kho ID"],["tips","Mẹo"]];
@@ -247,7 +249,7 @@ function render(){
       by[g].map(x=>`<div class="item"><code>${hi(x.k,term)}</code><div class="desc">${hi(x.d,term)}</div>${copyBtn(g.startsWith("ID")||g.startsWith("Tài")?x.k:"shuxing_"+x.k+"_100")}</div>`).join("")+"</section>";}
   }
   if(tab==="ids"){
-    html+=`<div class="note">🗃 <b>1.365 ID</b> trích trực tiếp từ data game bản Việt hoá — khí vận (700xxx), tọa kỵ (3021xxx), hiệu ứng, đan dược… Dùng cho các lệnh cần ID. <span class="badge">BETA — đang bổ sung</span></div>`;
+    html+=`<div class="note">🗃 <b>1.365 ID</b> trích 100% từ data IPA bản Việt hoá — khí vận (700xxx), hiệu ứng, đan dược… Thần khí dùng shenqi_1/2/3 (xem tab Mẹo). <span class="badge">BETA — đang bổ sung</span></div>`;
     const items=GAME_IDS.filter(x=>!term||deacc(x.id+" "+x.n+" "+x.d).includes(term));count=items.length;
     html+=`<section><h2>Kết quả<span class="cnt">${count}</span></h2>`+
       items.slice(0,idLimit).map(x=>`<div class="item idrow"><code>${hi(x.id,term)}</code><div><div class="name">${hi(x.n,term)}</div>${x.d?`<div class="desc">${hi(x.d,term)}</div>`:""}</div>${copyBtn(x.id)}</div>`).join("");

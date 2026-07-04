@@ -1,5 +1,5 @@
 // QCBH service worker — network-first, tự cập nhật
-const VERSION = "v2.0.0";
+const VERSION = "v2.0.1";
 const CACHE = "qcbh-" + VERSION;
 const ASSETS = ["./", "./index.html", "./data_ids.js", "./manifest.json"];
 
